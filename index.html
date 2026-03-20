@@ -482,10 +482,10 @@
     position: relative;
     z-index: 1;
   }
-  .about-visual { position: relative; }
+  .about-visual { position: relative; max-width: 300px; }
   .portrait-frame {
     position: relative;
-    aspect-ratio: 3/4;
+    aspect-ratio: 2/3;
     background: var(--charcoal);
     overflow: hidden;
   }
@@ -524,6 +524,143 @@
     background: var(--black);
     transform: translateX(-50%) rotate(45deg);
     opacity: 0.6;
+  }
+
+  /* ══ PORTRAIT SIDE DECOR ══ */
+  .about-side-decor {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .side-decor-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.6rem;
+  }
+  .side-decor-rule::before,
+  .side-decor-rule::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(200,168,75,0.35), transparent);
+  }
+  .side-decor-rule::after {
+    background: linear-gradient(to left, rgba(200,168,75,0.1), transparent);
+  }
+  .side-decor-rule span {
+    width: 5px; height: 5px;
+    border: 1px solid rgba(200,168,75,0.6);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .side-stat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .side-stat {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.07);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .side-stat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: rgba(200,168,75,0.04);
+    transition: width 0.4s;
+  }
+  .side-stat:hover::before { width: 100%; }
+  .side-stat-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.54rem;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    position: relative;
+  }
+  .side-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--gold-light);
+    position: relative;
+  }
+
+  .side-quote-block {
+    margin-top: 1.8rem;
+    padding: 1.2rem 1.4rem;
+    border-left: 1px solid rgba(200,168,75,0.25);
+    position: relative;
+  }
+  .side-quote-block::before {
+    content: '«';
+    position: absolute;
+    top: -0.5rem; left: 0.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: rgba(200,168,75,0.12);
+    line-height: 1;
+  }
+  .side-quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .side-quote-attr {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    color: rgba(200,168,75,0.4);
+    text-transform: uppercase;
+    margin-top: 0.6rem;
+  }
+
+  .side-ornament-svg {
+    margin-top: 2rem;
+    text-align: center;
+    opacity: 0.18;
+  }
+
+  .side-small-photo {
+    margin-top: 1.8rem;
+    position: relative;
+    aspect-ratio: 3/2;
+    max-height: 140px;
+    overflow: hidden;
+    background: var(--charcoal);
+  }
+  .side-small-photo::after {
+    content: '';
+    position: absolute; inset: 8px;
+    border: 1px solid rgba(200,168,75,0.12);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .side-small-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(15%) brightness(0.85);
+    transition: transform 0.5s, filter 0.4s;
+  }
+  .side-small-photo:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%) brightness(1);
+  }
+  .side-small-photo .gallery-placeholder {
+    position: absolute; inset: 0;
   }
 
   /* ══ NEW BIO TEXT STYLES ══ */
@@ -1024,16 +1161,20 @@ const PHOTOS = {
     alt:     "Всеволод Быков"
   },
 
-  // ── ГАЛЕРЕЯ (7 фото) ───────────────────────────────────────────────
+  // ── МАЛЕНЬКОЕ ФОТО под декором (левая колонка «О себе») ────────────
+  sidePhoto: {
+    src:     "o_sebe2.jpg",           // ← вставьте путь или URL
+    alt:     "Всеволод Быков"
+  },
+
+  // ── ГАЛЕРЕЯ (5 фото) ───────────────────────────────────────────────
   // Фото 1 — большое, занимает 2 колонки (лучше вертикальный портрет)
   gallery: [
-    { src: "", title: "Портрет",   caption: "" },   // фото 1 (большое)
-    { src: "", title: "На сцене",  caption: "" },   // фото 2
-    { src: "", title: "В роли",    caption: "" },   // фото 3
-    { src: "", title: "Режиссёр",  caption: "" },   // фото 4
-    { src: "", title: "Педагог",   caption: "" },   // фото 5
-    { src: "", title: "За кадром", caption: "" },   // фото 6
-    { src: "", title: "Спорт",     caption: "" },   // фото 7
+    { src: "g_portret.jpg", title: "Портрет",   caption: "" },   // фото 1 (большое)
+    { src: "1.jpg", title: "На сцене",  caption: "" },   // фото 2
+    { src: "3.jpg", title: "В роли",    caption: "" },   // фото 3
+    { src: "5.jpg", title: "Режиссёр",  caption: "" },   // фото 4
+    { src: "2.jpg", title: "Педагог",   caption: "" },   // фото 5
   ]
 
 };
@@ -1153,6 +1294,58 @@ const PHOTOS = {
       <div class="corner corner-bl"></div>
       <div class="corner corner-br"></div>
       <div class="portrait-diamond"></div>
+
+      <!-- Декор под портретом -->
+      <div class="about-side-decor reveal">
+        <div class="side-decor-rule"><span></span></div>
+
+        <div class="side-stat-list">
+          <div class="side-stat">
+            <span class="side-stat-label">Образование</span>
+            <span class="side-stat-value">ГИТИС · Щукинское</span>
+          </div>
+          <div class="side-stat">
+            <span class="side-stat-label">В кино</span>
+            <span class="side-stat-value">с 2006 года</span>
+          </div>
+          <div class="side-stat">
+            <span class="side-stat-label">Специализация</span>
+            <span class="side-stat-value">Актёр · Режиссёр</span>
+          </div>
+          <div class="side-stat">
+            <span class="side-stat-label">Педагогика</span>
+            <span class="side-stat-value">Система Станиславского</span>
+          </div>
+          <div class="side-stat">
+            <span class="side-stat-label">Город</span>
+            <span class="side-stat-value">Москва, Арбат</span>
+          </div>
+        </div>
+
+        <div class="side-quote-block">
+          <div class="side-quote-text">Где Быков — там успех</div>
+          <div class="side-quote-attr">— Сергей Королёв</div>
+        </div>
+
+        <div class="side-ornament-svg">
+          <svg width="120" height="60" viewBox="0 0 120 60" fill="none">
+            <line x1="0" y1="30" x2="48" y2="30" stroke="#c8a84b" stroke-width="0.7"/>
+            <line x1="72" y1="30" x2="120" y2="30" stroke="#c8a84b" stroke-width="0.7"/>
+            <rect x="56" y="24" width="8" height="8" transform="rotate(45 60 28)" stroke="#c8a84b" stroke-width="0.8" fill="none"/>
+            <circle cx="60" cy="28" r="18" stroke="#c8a84b" stroke-width="0.4" fill="none"/>
+            <circle cx="60" cy="28" r="24" stroke="#c8a84b" stroke-width="0.3" fill="none" opacity="0.5"/>
+            <line x1="60" y1="4" x2="60" y2="14" stroke="#c8a84b" stroke-width="0.5"/>
+            <line x1="60" y1="42" x2="60" y2="52" stroke="#c8a84b" stroke-width="0.5"/>
+            <line x1="36" y1="28" x2="46" y2="28" stroke="#c8a84b" stroke-width="0.5"/>
+            <line x1="74" y1="28" x2="84" y2="28" stroke="#c8a84b" stroke-width="0.5"/>
+          </svg>
+        </div>
+
+        <!-- Маленькое фото -->
+        <div class="side-small-photo" id="side-photo-wrap">
+          <!-- заполняется из PHOTOS.sidePhoto ниже -->
+        </div>
+      </div>
     </div>
 
     <!-- Text column -->
@@ -1368,13 +1561,16 @@ const PHOTOS = {
   <div class="contact-inner">
     <div class="section-label reveal" style="justify-content:center">Связь</div>
     <h2 class="section-title reveal" style="text-align:center">Контакт<br><em>&amp; Сотрудничество</em></h2>
+    <p class="reveal" style="color:var(--muted);font-style:italic;text-align:center;font-size:1.1rem">
+      По вопросам кастинга, съёмок и театральных проектов —<br>свяжитесь с агентом или напишите напрямую.
+    </p>
     <div class="contact-info reveal">
       <div class="contact-line">Агент: <strong>по запросу</strong></div>
       <div class="contact-line">Проекты: <strong>театр · кино · педагогика</strong></div>
       <div class="contact-line">Москва, Россия</div>
     </div>
     <div class="contact-buttons reveal">
-      <a href="/cdn-cgi/l/email-protection#7a1b1d1f140e3a1f021b170a161f54191517" class="btn btn-gold">Написать</a>
+      <a href="/cdn-cgi/l/email-protection#7a1b1d1f140e3a1f021b170a161f54191517" class="btn btn-gold">Написать агенту</a>
       <a href="#about" class="btn btn-outline">Узнать больше</a>
     </div>
   </div>
@@ -1409,6 +1605,16 @@ const PHOTOS = {
       portraitFrame.innerHTML = `<img src="${PHOTOS.portrait.src}" alt="${PHOTOS.portrait.alt}" style="width:100%;height:100%;object-fit:cover;display:block;">`;
     } else {
       portraitFrame.innerHTML = `<div class="gallery-placeholder">${PLACEHOLDER_SVG}<div class="gallery-placeholder-label">Портрет<br>Фото актёра</div></div>`;
+    }
+  }
+
+  // Side small photo
+  const sideWrap = document.getElementById('side-photo-wrap');
+  if (sideWrap) {
+    if (PHOTOS.sidePhoto.src) {
+      sideWrap.innerHTML = `<img src="${PHOTOS.sidePhoto.src}" alt="${PHOTOS.sidePhoto.alt}">`;
+    } else {
+      sideWrap.innerHTML = `<div class="gallery-placeholder">${PLACEHOLDER_SVG}<div class="gallery-placeholder-label">Фото</div></div>`;
     }
   }
 
